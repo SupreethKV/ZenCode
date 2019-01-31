@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="email_template_zen" model="mail.template">
+            <field name="name">Zen Notification Email</field>
+            <field name="email_from">${object.user_id.email or ''}</field>
+            <field name="subject">Odoo</field>
+            <field name="model_id" ref="zen_code.model_zen_code"/>
+            <field name="email_to" >${('' if object.partner_id and object.partner_id.email and object.partner_id.email==object.email else object.email|safe)}</field>
+            <field name="partner_to">${object.partner_id and object.partner_id.email and object.partner_id.email==object.email and object.partner_id.id or False }</field>
+            <field name="auto_delete" eval="True"/>
+            <field name="lang">${object.partner_id.lang}</field>
+            <field name="body_html">
+                        <![CDATA[
+                      <p>Dear Customer,<br/><br/>
+                      Welcome to Odoo World. Please click on this URL: "www.odoo.com"<br/></p>
+                          Regards,<br/>
+                          Administrator
+                    ]]>
+                  </field>
+        </record>
+
+    </data>
+</odoo>
